@@ -57,7 +57,7 @@ export default function SignUp() {
                     required
                     />
                 <SignUpSubmit type="submit" value="CADASTRAR"/>
-                <Link to="/">
+                <Link to="/login">
                     <p>Já possuí uma conta? Entre</p>
                 </Link>
                 

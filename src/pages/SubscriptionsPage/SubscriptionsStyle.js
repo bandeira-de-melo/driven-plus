@@ -26,6 +26,7 @@ export const StyledSubCard = styled.div`
     height: 180px;
     border: 3px solid #7E7E7E;
     border-radius: 12px;
+    
     h2{
         font-size: 20px;
         font-weight: 700;

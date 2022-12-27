@@ -2,21 +2,26 @@ import { FormLogin, Input, LoginSubmit, StyledLoginPage } from "./LoginStyle";
 import LOGODRIVEN from "../../assets/images/logo-driven.svg"
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 
 export default function LoginPage() {
-    const {setAndPersistToken, setToken} = useContext(AuthContext)
+    const {setAndPersistToken, setToken, userMembership} = useContext(AuthContext)
     const [userInfo, setUserInfo] = useState({})
-    const navigate = useNavigate()
+    let navigate = useNavigate()
 
     useEffect(()=>{
         const tokenOnLocalStorage = localStorage.getItem("token")
         if(tokenOnLocalStorage !== null){
           setToken(tokenOnLocalStorage)
-        } 
+          if(userMembership === null){
+            navigate=("/subscriptions")
+          } else {
+            navigate=("/home")
+          }
+        }
       },[])
 
     function handleLoginInfo(e){
@@ -33,6 +38,7 @@ export default function LoginPage() {
             console.log(res.data.token)
             setAndPersistToken(res.data.token)
             res.data.membership === null? navigate("/subscriptions") : navigate("/home")
+
         })
         .catch(err => {alert(err.message)})
     }

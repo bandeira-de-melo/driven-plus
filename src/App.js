@@ -1,31 +1,54 @@
 import styled from "styled-components";
 import { BLACK } from "./constants/colors";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignUp from "./pages/SignUpPage/SignUp";
+import HomePage from "./pages/HomePage/HomePage";
 import Subscriptions from "./pages/SubscriptionsPage/Subscriptions";
 import AuthContext from "./contexts/AuthContext";
 import { useState } from "react";
+import SignUpSubscription from "./pages/SignUpSubscriptionPage/SignUpSubscription";
+
 
 
 
 function App() {
   const [token, setToken] = useState(null)
+  const [subscription, setSubscription] = useState({})
+  const [userMembership, setUserMembership] = useState(null)
+  const [userData, setUserData ] = useState({})
+  
+
+  
+  
 
   function setAndPersistToken(tkn) {
 		setToken(tkn);
 		localStorage.setItem("token", tkn);
+    console.log(localStorage.getItem("token"))
 	}
 
 
   return (
-    <AuthContext.Provider value={{token, setToken, setAndPersistToken}}>
+    <AuthContext.Provider 
+    value={{
+    token, 
+    setToken, 
+    setAndPersistToken, 
+    subscription,
+    setSubscription, 
+    setUserMembership, 
+    userMembership, 
+    userData, 
+    setUserData}}>
     <BrowserRouter>
       <StyledApp>
         <Routes>
             <Route path="/" element={<LoginPage/>} />
+            <Route path="/home" element={<HomePage />} />
             <Route path="/sign-up" element={<SignUp/>} />
             <Route path="/subscriptions" element={<Subscriptions/>} />
+            <Route path="/subscriptions/:id" element={<SignUpSubscription />} />
         </Routes>
       </StyledApp>
     </BrowserRouter>
