@@ -9,13 +9,35 @@ export const StyledHomePage = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  h1{
+  
     color: #fff;
+
+  footer{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    padding-top: 20px ;
   }
 `
 export const StyledHomeHeader = styled.header`
   width: 100%;
   height: 176px;
+  display: flex;
+  flex-direction: column;
+  h1{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    
+  }
+  h2{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    font-size: 26px;
+  }
 `
 
 export const PerkButton = styled.a`

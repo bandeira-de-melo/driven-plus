@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function LoginPage() {
-    const {setAndPersistToken, setToken, userMembership} = useContext(AuthContext)
+    const {setAndPersistToken, setToken, subscription, setSubscription, user, setUser} = useContext(AuthContext)
     const [userInfo, setUserInfo] = useState({})
     let navigate = useNavigate()
 
@@ -16,13 +16,10 @@ export default function LoginPage() {
         const tokenOnLocalStorage = localStorage.getItem("token")
         if(tokenOnLocalStorage !== null){
           setToken(tokenOnLocalStorage)
-          if(userMembership === null){
-            navigate=("/subscriptions")
-          } else {
-            navigate=("/home")
-          }
         }
       },[])
+
+
 
     function handleLoginInfo(e){
         setUserInfo({...userInfo, [e.target.name]: e.target.value})
@@ -37,7 +34,10 @@ export default function LoginPage() {
         .then(res => {
             console.log(res.data.token)
             setAndPersistToken(res.data.token)
-            res.data.membership === null? navigate("/subscriptions") : navigate("/home")
+            setSubscription(res.data.membership)
+            setUser({name: res.data.name})
+            navigate("/subscriptions")
+            /* subscription === null? navigate("/subscriptions") : navigate("/home") */
 
         })
         .catch(err => {alert(err.message)})

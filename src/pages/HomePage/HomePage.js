@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext} from "react";
 import AuthContext from "../../contexts/AuthContext";
 import { CancelButton, ChangeMSButton, PerkButton, StyledHomeHeader, StyledHomePage } from "./HomePageStyle";
 import USERICON from "../../assets/images/user-icon.svg"
@@ -6,16 +6,18 @@ import { Link } from "react-router-dom";
 
 
 export default function HomePage() {
-    const {userMembership} = useContext(AuthContext)
+   
+    const {subscription, user} = useContext(AuthContext)
+  
     return(
         <StyledHomePage>
             <StyledHomeHeader>
-                <h1><img src={userMembership.image} alt=""/>  <img src={USERICON} alt=""/></h1>
-                <h2>Olá, fulano</h2>
+                <h1><img src={subscription.image} alt=""/>  <img src={USERICON} alt=""/></h1>
+                <h2>Olá, {user.name}</h2>
             </StyledHomeHeader>
-            {userMembership.perks.map(perk => {
+            {subscription.perks.map(perk => {
                 return  (
-                        <PerkButton href={perk.link}>
+                        <PerkButton href={perk.link} key={perk.id}>
                             <p>{perk.title}</p>
                         </PerkButton>
                         )

@@ -15,9 +15,9 @@ import SignUpSubscription from "./pages/SignUpSubscriptionPage/SignUpSubscriptio
 function App() {
   const [token, setToken] = useState(null)
   const [subscription, setSubscription] = useState({})
-  const [userMembership, setUserMembership] = useState(null)
   const [userData, setUserData ] = useState({})
-  
+  const [memberships, setMemberships] = useState(null)
+  const [user, setUser]= useState({})
 
   
   
@@ -32,13 +32,14 @@ function App() {
   return (
     <AuthContext.Provider 
     value={{
+    user, setUser,
     token, 
-    setToken, 
+    setToken,
+    memberships, 
+    setMemberships, 
     setAndPersistToken, 
     subscription,
     setSubscription, 
-    setUserMembership, 
-    userMembership, 
     userData, 
     setUserData}}>
     <BrowserRouter>

@@ -8,13 +8,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function Subscriptions() {
     const navigate = useNavigate()
-    const {token, setSubscription, setUserMembership} = useContext(AuthContext)
-    const [memberships, setMemberships] = useState(null)
+    const {token, setSubscription, setUserMembership, memberships, setMemberships} = useContext(AuthContext)
+    
 
     useEffect(()=> {
         const URL = "https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships"
         axios.get(URL, {
-            headers: {
+            headers: { 
                 'Authorization': `Bearer ${token}`
             }
         })
@@ -31,7 +31,7 @@ export default function Subscriptions() {
        })
        .then(res => {
             setSubscription(res.data)
-            setUserMembership(res.data)
+        
             navigate(`/subscriptions/${id}`)
 
        })

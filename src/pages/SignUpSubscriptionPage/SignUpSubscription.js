@@ -1,6 +1,6 @@
 import { Input, InputSmall, InputSubmit, StyledSignUpSubscriptionPage, StyledSubPerks, StyledSubscriptionForm } from "./SignUpSubscriptionsStyle";
 import ArrowBack from "../../assets/images/arrow-back.svg"
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import PERKICON from "../../assets/images/perks-icon.svg"
 import BILLICON from "../../assets/images/bill-icon.svg"
@@ -9,11 +9,15 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUpSubscription() {
     const navigate = useNavigate()
-    const {subscription, userData, setUserData, token} = useContext(AuthContext)
+    const {subscription, userData, setUserData, token,setSubscription, user, setUser} = useContext(AuthContext)
     const [cardName, setCadName ]=useState("")
     const [cardNumber, setCardNumber ]=useState("")
     const [securityNumber, setSecurityNumber]=useState("")
     const [expirationDate, setExpirationDate]=useState("")
+
+    useEffect(()=>{
+
+    },[])
 
     function subscribe(e){
         e.preventDefault()
@@ -27,7 +31,8 @@ export default function SignUpSubscription() {
                     'Authorization': `Bearer ${token}` 
                   } 
             })
-            .then(res => navigate("/home"))
+            .then(res => setSubscription(res.data)).then(navigate("/home"))
+            /* .then(res => {setUserMembership(res.data)}).then(navigate("/home")) */
             .catch(err => alert(err.message))
     }
 
